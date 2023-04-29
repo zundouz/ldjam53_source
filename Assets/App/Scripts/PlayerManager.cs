@@ -7,7 +7,10 @@ namespace App.Scripts
         private const float Thrust = 5.0f;
         private const float MaxSpeed = 5.0f;
         private const float Drag = 0.25f;
+        
         private const float RotationSpeed = 100.0f;
+        private const float RotationAcceleration = 10f;
+        private float _currentRotationSpeed = 0f;
 
         private Rigidbody2D _rb;
         private float _horizontal;
@@ -37,17 +40,20 @@ namespace App.Scripts
                 rotation = -1f;
             }
 
-            transform.Rotate(new Vector3(0, 0, rotation * RotationSpeed * Time.deltaTime));
+            _currentRotationSpeed = Mathf.Lerp(_currentRotationSpeed, rotation * RotationSpeed, RotationAcceleration * Time.deltaTime);
         }
 
         // FixedUpdate is called once per fixed time interval
         void FixedUpdate()
         {
             Vector2 force = new Vector2(_horizontal * Thrust, _vertical * Thrust);
-            _rb.AddForce(force);
+            _rb.AddForce(force); // transform
+            _rb.AddTorque(_currentRotationSpeed * 5f * Time.deltaTime); // rotation
 
             // Limit the player's speed
             var velocity = Vector2.ClampMagnitude(_rb.velocity, MaxSpeed);
+            // Limit the player's rotation speed
+            _rb.angularVelocity = Mathf.Clamp(_rb.angularVelocity, -RotationSpeed, RotationSpeed);
 
             // Apply drag force to velocity
             velocity -= velocity * (Drag * Time.fixedDeltaTime);
