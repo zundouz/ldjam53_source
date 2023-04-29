@@ -4,16 +4,16 @@ namespace App.Scripts
 {
     public class PlayerManager : MonoBehaviour
     {
-        private float thrust = 5.0f;
-        private float maxSpeed = 5.0f;
-        private float drag = 0.25f;
+        private const float Thrust = 5.0f;
+        private const float MaxSpeed = 5.0f;
+        private const float Drag = 0.25f;
 
-        private Rigidbody2D rb;
+        private Rigidbody2D _rb;
 
         // Start is called before the first frame update
         void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         // FixedUpdate is called once per fixed time interval
@@ -23,14 +23,15 @@ namespace App.Scripts
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            Vector2 force = new Vector2(horizontal * thrust, vertical * thrust);
-            rb.AddForce(force);
+            Vector2 force = new Vector2(horizontal * Thrust, vertical * Thrust);
+            _rb.AddForce(force);
 
             // Limit the player's speed
-            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
+            var velocity = Vector2.ClampMagnitude(_rb.velocity, MaxSpeed);
 
             // Apply drag force
-            rb.velocity -= rb.velocity * drag * Time.fixedDeltaTime;
+            velocity -= velocity * (Drag * Time.fixedDeltaTime);
+            _rb.velocity = velocity;
         }
     }
 }
