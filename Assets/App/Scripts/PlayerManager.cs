@@ -48,12 +48,12 @@ namespace App.Scripts
         {
             Vector2 force = new Vector2(_horizontal * Thrust, _vertical * Thrust);
             _rb.AddForce(force); // transform
-            _rb.AddTorque(_currentRotationSpeed * 5f * Time.deltaTime); // rotation
+            _rb.AddTorque(_currentRotationSpeed * 2.5f * Time.deltaTime); // rotation
 
             // Limit the player's speed
             var velocity = Vector2.ClampMagnitude(_rb.velocity, MaxSpeed);
             // Limit the player's rotation speed
-            var angularVelocity = Mathf.Clamp(_rb.angularVelocity, -RotationSpeed, RotationSpeed);
+            var angularVelocity = Mathf.Clamp(_rb.angularVelocity, -RotationSpeed, RotationSpeed / 2f);
 
             // Apply drag force to velocity
             velocity -= velocity * (Drag * Time.fixedDeltaTime);
