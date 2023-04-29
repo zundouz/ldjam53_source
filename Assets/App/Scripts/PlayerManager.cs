@@ -4,6 +4,8 @@ namespace App.Scripts
 {
     public class PlayerManager : MonoBehaviour
     {
+        static public Vector3 PlayerRotate { get; private set; } = Vector3.zero;
+
         private const float Thrust = 5.0f;
         private const float MaxSpeed = 5.0f;
         private const float Drag = 0.25f;
@@ -24,6 +26,9 @@ namespace App.Scripts
 
         private void Update()
         {
+            // プレイヤーの回転を取得しておく
+            PlayerRotate = transform.rotation.eulerAngles;
+            
             // プレイヤーは無重力の空間に対して上下左右キーを入力することで移動ができる
             _horizontal = Input.GetAxis("Horizontal");
             _vertical = Input.GetAxis("Vertical");
