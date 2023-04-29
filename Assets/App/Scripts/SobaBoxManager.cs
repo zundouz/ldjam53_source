@@ -6,6 +6,9 @@ namespace App.Scripts
     {
         [SerializeField] private int SobaBoxId; // ID を設定することで、どのそば箱がぶつかったかを判別できるようにする
         
+        // プレイヤーの手元から離れているか
+        private bool _isAwayFromPlayer = false;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -23,7 +26,14 @@ namespace App.Scripts
             if (collision.collider.CompareTag($"Wall"))
             {
                 Debug.Log($"ぶつかりました。ID: {SobaBoxId}");
-                Destroy(gameObject);
+                
+                // ただ消すだけだと味気ないので、ぶつかった後にちょっとRigidBodyのような挙動が入るようにしてみるテスト
+                // Destroy(gameObject);
+                
+                // RigidBody2Dコンポーネントを、新規でアタッチ
+                var rb = gameObject.AddComponent<Rigidbody2D>();
+                rb.gravityScale = 0.1f;
+                _isAwayFromPlayer = true;
             }
         }
     }
