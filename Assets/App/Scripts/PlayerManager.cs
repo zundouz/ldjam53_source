@@ -53,13 +53,15 @@ namespace App.Scripts
             // Limit the player's speed
             var velocity = Vector2.ClampMagnitude(_rb.velocity, MaxSpeed);
             // Limit the player's rotation speed
-            _rb.angularVelocity = Mathf.Clamp(_rb.angularVelocity, -RotationSpeed, RotationSpeed);
+            var angularVelocity = Mathf.Clamp(_rb.angularVelocity, -RotationSpeed, RotationSpeed);
 
             // Apply drag force to velocity
             velocity -= velocity * (Drag * Time.fixedDeltaTime);
             // Apply drag force to rotate
-            _rb.angularVelocity -= _rb.angularVelocity * (Drag * Time.fixedDeltaTime);
+            angularVelocity -= angularVelocity * (Drag * Time.fixedDeltaTime);
             
+            // Apply final velocity and angular velocity
+            _rb.angularVelocity = angularVelocity;
             _rb.velocity = velocity;
         }
     }
