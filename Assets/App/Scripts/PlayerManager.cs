@@ -54,8 +54,13 @@ namespace App.Scripts
         void FixedUpdate()
         {
             Vector2 force = new Vector2(_horizontal * Thrust, _vertical * Thrust);
-            _rb.AddForce(force); // transform
-            _rb.AddTorque(_currentRotationSpeed * 2.5f * Time.deltaTime); // rotation
+            _rb.AddForce(force); // Apply transformInput
+            // transform の大きさに追従するrotation追加
+            float RotationFactor = 0.1f;
+            float rotationAmount = force.magnitude * RotationFactor; // 回転量は力の大きさに比例
+            _rb.AddTorque(rotationAmount); // Rigidbodyにトルク（回転力）を追加
+            
+            _rb.AddTorque(_currentRotationSpeed * 2.5f * Time.deltaTime); // Apply rotationInput
 
             // Limit the player's speed
             var velocity = Vector2.ClampMagnitude(_rb.velocity, MaxSpeed);
