@@ -49,8 +49,11 @@ namespace App.Scripts
             // Limit the player's speed
             var velocity = Vector2.ClampMagnitude(_rb.velocity, MaxSpeed);
 
-            // Apply drag force
+            // Apply drag force to velocity
             velocity -= velocity * (Drag * Time.fixedDeltaTime);
+            // Apply drag force to rotate
+            _rb.angularVelocity -= _rb.angularVelocity * (Drag * Time.fixedDeltaTime);
+            
             _rb.velocity = velocity;
         }
     }
