@@ -20,9 +20,10 @@ namespace App.Scripts.Camera
             // {
             //     offset.y = 0f;
             // }
+            
             // 条件分岐よりも cos 使ったほうがよさそう -> よくなった
-            offset.x = -3.0f * Mathf.Sin((Mathf.Deg2Rad * playerRotate.z));
-            offset.y = 4.5f * Mathf.Cos((Mathf.Deg2Rad * playerRotate.z));
+            offset.x = -4.0f * Mathf.Sin((Mathf.Deg2Rad * playerRotate.z)) * PlayerManager.PlayerRigidBody.velocity.magnitude * 0.3f;
+            offset.y = 5.0f * Mathf.Cos((Mathf.Deg2Rad * playerRotate.z)) * PlayerManager.PlayerRigidBody.velocity.magnitude * 0.3f;
             
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);

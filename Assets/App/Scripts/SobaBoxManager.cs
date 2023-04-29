@@ -21,6 +21,13 @@ namespace App.Scripts
             SobaBoxHavingState.OnPlayer,
             SobaBoxHavingState.OnPlayer,
             SobaBoxHavingState.OnPlayer,
+            //
+            SobaBoxHavingState.OnPlayer,
+            SobaBoxHavingState.OnPlayer,
+            SobaBoxHavingState.OnPlayer,
+            SobaBoxHavingState.OnPlayer,
+            SobaBoxHavingState.OnPlayer,
+            //
             SobaBoxHavingState.OnPlayer,
             SobaBoxHavingState.OnPlayer,
             SobaBoxHavingState.OnPlayer,
@@ -43,14 +50,15 @@ namespace App.Scripts
         // Update is called once per frame
         void Update()
         {
-            // 自分より上のそば箱を全て無効にする
-            if (SobaBoxHavingStateList[SobaBoxId] == SobaBoxHavingState.AwayFromPlayer)
-            {
-                for (int i = SobaBoxId; i < SobaBoxHavingStateList.Length; i++)
-                {
-                    SobaBoxHavingStateList[i] = SobaBoxHavingState.AwayFromPlayer;
-                }
-            }
+            // 以下の処理はさすがに操作が厳しくなりすぎなので消しました
+            // // 自分より上のそば箱を全て無効にする
+            // if (SobaBoxHavingStateList[SobaBoxId] == SobaBoxHavingState.AwayFromPlayer)
+            // {
+            //     for (int i = SobaBoxId; i < SobaBoxHavingStateList.Length; i++)
+            //     {
+            //         SobaBoxHavingStateList[i] = SobaBoxHavingState.AwayFromPlayer;
+            //     }
+            // }
         }
         
         void OnCollisionEnter2D(Collision2D collision)

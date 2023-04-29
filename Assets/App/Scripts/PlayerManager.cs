@@ -4,7 +4,8 @@ namespace App.Scripts
 {
     public class PlayerManager : MonoBehaviour
     {
-        static public Vector3 PlayerRotate { get; private set; } = Vector3.zero;
+        public static Vector3 PlayerRotate { get; private set; } = Vector3.zero;
+        public static Rigidbody2D PlayerRigidBody { get; set; }
 
         private const float Thrust = 5.0f;
         private const float MaxSpeed = 5.0f;
@@ -22,6 +23,7 @@ namespace App.Scripts
         void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
+            PlayerRigidBody = _rb;
         }
 
         private void Update()
