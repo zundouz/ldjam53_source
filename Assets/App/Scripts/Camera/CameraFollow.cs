@@ -26,6 +26,30 @@ namespace App.Scripts.Camera
             offset.y = 5.0f * Mathf.Cos((Mathf.Deg2Rad * playerRotate.z)) * PlayerManager.PlayerRigidBody.velocity.magnitude * 0.3f;
             
             Vector3 desiredPosition = target.position + offset;
+
+            // オフセットによってプレイヤーが画面から出てしまうようなら、オフセットを0にする
+            if (desiredPosition.x < target.position.x && PlayerManager.PlayerRigidBody.velocity.x > 0f)
+            {
+                offset.x = 0f;
+                desiredPosition = target.position + offset;
+            }
+            if (desiredPosition.x > target.position.x && PlayerManager.PlayerRigidBody.velocity.x < 0f)
+            {
+                offset.x = 0f;
+                desiredPosition = target.position + offset;
+            }
+            if (desiredPosition.y > target.position.y && PlayerManager.PlayerRigidBody.velocity.y < 0f)
+            {
+                offset.y = 0f;
+                desiredPosition = target.position + offset;
+            }
+            if (desiredPosition.y < target.position.y && PlayerManager.PlayerRigidBody.velocity.y > 0f)
+            {
+                offset.y = 0f;
+                desiredPosition = target.position + offset;
+            }
+            
+            
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             smoothedPosition.z = transform.position.z; // Keep the camera's original Z position
             
