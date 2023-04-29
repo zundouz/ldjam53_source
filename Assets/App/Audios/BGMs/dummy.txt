@@ -1,1 +1,0 @@
-In Git, it's not possible to commit empty folders. To work around this limitation, place a placeholder or dummy file in the unused folder, enabling it to be committed.
