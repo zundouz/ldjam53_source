@@ -5,6 +5,7 @@ namespace App.Scripts
     public class SobaBoxManager : MonoBehaviour
     {
         [SerializeField] private int SobaBoxId; // ID を設定することで、どのそば箱がぶつかったかを判別できるようにする
+        // [SerializeField] private PhysicsMaterial2D noFrictionMaterial; // できないらしい
         
         // プレイヤーの手元から離れているか
         private bool _isAwayFromPlayer = false;
