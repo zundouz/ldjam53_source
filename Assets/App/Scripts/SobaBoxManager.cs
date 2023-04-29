@@ -23,6 +23,7 @@ namespace App.Scripts
             if (collision.collider.CompareTag($"Wall"))
             {
                 Debug.Log($"ぶつかりました。ID: {SobaBoxId}");
+                Destroy(gameObject);
             }
         }
     }
