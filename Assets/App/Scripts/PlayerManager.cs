@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace App.Scripts
@@ -9,6 +10,8 @@ namespace App.Scripts
         private const float Drag = 0.25f;
 
         private Rigidbody2D _rb;
+        private float _horizontal;
+        private float _vertical;
 
         // Start is called before the first frame update
         void Start()
@@ -16,14 +19,19 @@ namespace App.Scripts
             _rb = GetComponent<Rigidbody2D>();
         }
 
+        private void Update()
+        {
+            // プレイヤーは無重力の空間に対して上下左右キーを入力することで移動ができる
+            _horizontal = Input.GetAxis("Horizontal");
+            _vertical = Input.GetAxis("Vertical");
+        }
+
         // FixedUpdate is called once per fixed time interval
         void FixedUpdate()
         {
-            // プレイヤーは無重力の空間に対して上下左右キーを入力することで移動ができる
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
 
-            Vector2 force = new Vector2(horizontal * Thrust, vertical * Thrust);
+
+            Vector2 force = new Vector2(_horizontal * Thrust, _vertical * Thrust);
             _rb.AddForce(force);
 
             // Limit the player's speed
