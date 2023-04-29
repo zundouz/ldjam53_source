@@ -73,6 +73,9 @@ namespace App.Scripts
                 // ぶつかった最初の１回だけ
                 if (!_isAwayFromPlayer)
                 {
+                    // 効果音
+                    AudioManager.Instance.PlaySe(AudioManager.SePath.SOBA_HIT);
+                    
                     // RigidBody2Dコンポーネントを、新規でアタッチ
                     var rb = gameObject.AddComponent<Rigidbody2D>();
                     rb.gravityScale = 0.01f;
