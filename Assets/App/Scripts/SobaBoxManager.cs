@@ -30,10 +30,15 @@ namespace App.Scripts
                 // ただ消すだけだと味気ないので、ぶつかった後にちょっとRigidBodyのような挙動が入るようにしてみるテスト
                 // Destroy(gameObject);
                 
-                // RigidBody2Dコンポーネントを、新規でアタッチ
-                var rb = gameObject.AddComponent<Rigidbody2D>();
-                rb.gravityScale = 0.1f;
-                _isAwayFromPlayer = true;
+                // ぶつかった最初の１回だけ
+                if (!_isAwayFromPlayer)
+                {
+                    // RigidBody2Dコンポーネントを、新規でアタッチ
+                    var rb = gameObject.AddComponent<Rigidbody2D>();
+                    rb.gravityScale = 0.1f;
+                    _isAwayFromPlayer = true;
+                    gameObject.transform.parent = null;
+                }
             }
         }
     }
