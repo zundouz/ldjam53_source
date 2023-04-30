@@ -14,6 +14,7 @@ namespace App.Scripts
         };
 
         public static bool IsGameOver { get; private set; }
+        public static int SobaBoxCount { get; private set; }
 
         // 最初のステート
         public static SobaBoxHavingState[] SobaBoxHavingStateList =
@@ -53,6 +54,7 @@ namespace App.Scripts
             }
 
             IsGameOver = false;
+            SobaBoxCount = 15; // 初期値
         }
 
         // Update is called once per frame
@@ -111,12 +113,30 @@ namespace App.Scripts
                     //     Debug.Log($"{state}");
                     // }
                     
+                    // ぶつかった時だけ、現在の生存そば数を更新しておく
+                    CountSobaBox();
+                    
                     // ぶつかった時だけ、ゲームオーバー判定を行う
                     CheckGameOver();
                 }
             }
         }
 
+        private static void CountSobaBox()
+        {
+            // 生存中の蕎麦箱の数を数える
+            int aliveSobaNum = 0;
+            foreach (var state in SobaBoxHavingStateList)
+            {
+                if (state == SobaBoxHavingState.OnPlayer)
+                {
+                    aliveSobaNum++;
+                }
+            }
+
+            SobaBoxCount = aliveSobaNum;
+        }
+        
         private static void CheckGameOver()
         {
             // SobaBoxHavingStateList の中にOnPlayer が存在しなければ、ゲームオーバー判定
