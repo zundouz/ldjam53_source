@@ -9,6 +9,9 @@ namespace App.Scripts
         public static GameStateEnum GameState { get; set; } = GameStateEnum.Title;
         // リトライによる初期化かどうかの判定
         public static bool IsRetrying { get; set; } = false;
+        
+        // 取得したトッピング数
+        public static int ToppingCount { get; set; }
 
         public enum GameStateEnum
         {
@@ -31,6 +34,8 @@ namespace App.Scripts
             {
                 GameState = GameStateEnum.Title;
             }
+
+            ToppingCount = 0;
         }
 
         // Update is called once per frame
