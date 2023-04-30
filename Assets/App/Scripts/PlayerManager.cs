@@ -7,8 +7,8 @@ namespace App.Scripts
         public static Vector3 PlayerRotate { get; private set; } = Vector3.zero;
         public static Rigidbody2D PlayerRigidBody { get; set; }
 
-        private const float Thrust = 5.0f;
-        private const float MaxSpeed = 5.0f;
+        private const float Thrust = 3.0f;
+        private const float MaxSpeed = 4.0f;
         private const float Drag = 0.25f;
         
         private const float RotationSpeed = 100.0f;
@@ -44,9 +44,8 @@ namespace App.Scripts
             PlayerRotate = transform.rotation.eulerAngles;
             
             // プレイヤーは無重力の空間に対して上下左右キーを入力することで移動ができる
-            _horizontal = Input.GetAxis("Horizontal");
-            _vertical = Input.GetAxis("Vertical");
-            
+            GetPlayerTransformInput();
+
             // 回転処理
             float rotation = 0f;
 
@@ -87,6 +86,38 @@ namespace App.Scripts
             // Apply final velocity and angular velocity
             _rb.angularVelocity = angularVelocity;
             _rb.velocity = velocity;
+        }
+        
+        void GetPlayerTransformInput()
+        {
+            _horizontal = 0f;
+            _vertical = 0f;
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                _vertical = 1f;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                _vertical = -1f;
+            }
+            else
+            {
+                _vertical = 0f;
+            }
+
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                _horizontal = -1f;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                _horizontal = 1f;
+            }
+            else
+            {
+                _horizontal = 0f;
+            }
         }
     }
 }
