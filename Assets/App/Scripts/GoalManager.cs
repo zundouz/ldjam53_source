@@ -1,3 +1,4 @@
+using App.Scripts.Title;
 using UnityEngine;
 
 namespace App.Scripts
@@ -15,7 +16,17 @@ namespace App.Scripts
         // Update is called once per frame
         void Update()
         {
-        
+            // ゲームクリアステートのときだけZボタン入力を待ち、入力がきたらタイトルへ戻る処理
+            if (MyGameManager.GameState == MyGameManager.GameStateEnum.Result)
+            {
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    MyGameManager.GameState = MyGameManager.GameStateEnum.Title;
+                    TitleManager.IsTitleEnded = false;
+                    // 初期化処理としてシーンを読み直してしまう
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+                }
+            }
         }
         
         void OnTriggerEnter2D(Collider2D collider2d)
@@ -27,6 +38,7 @@ namespace App.Scripts
                 {
                     _isFirstTouchedGoal = false;
                     Debug.Log("GOAL!!!!");
+                    MyGameManager.GameState = MyGameManager.GameStateEnum.Result;
                 }
             }
         }
