@@ -35,7 +35,7 @@ namespace App.Scripts
                 GameState = GameStateEnum.Title;
             }
 
-            ToppingCount = 0;
+            ToppingCount = 1; // ゼロだとトッピング１つも取ってない時のスコアがゼロになってしまうので、防止してる
         }
 
         // Update is called once per frame
@@ -45,6 +45,9 @@ namespace App.Scripts
             // TODO: 画面遷移処理の実装
             if (GameState == GameStateEnum.LoadingMainGame)
             {
+                // 計測開始は MainGameに遷移する直後が最も良い
+                // というのは、MainGame内でRボタンを押したときもLoadingMainGameに遷移するため
+                PlaytimeManager.Instance.StartGame();
                 GameState = GameStateEnum.MainGame;
             }
             
@@ -54,8 +57,11 @@ namespace App.Scripts
                 GameState = GameStateEnum.GameOver;
             }
 
-            // 画面遷移中以外のステートは、Rキーでリトライできるようにしておく
-            if (GameState != GameStateEnum.LoadingMainGame)
+            // Rキーでリトライできるようにしておく
+            // ただし以下をのぞく
+            // - 画面遷移中以外のステート
+            // - リザルト画面
+            if (GameState != GameStateEnum.LoadingMainGame || GameState != GameStateEnum.Result)
             {
                 // Rキーで最初からできるようにしておく
                 if (Input.GetKeyDown(KeyCode.R))

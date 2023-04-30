@@ -37,6 +37,7 @@ namespace App.Scripts
                 {
                     _isFirstTouchedGoal = false;
                     Debug.Log("GOAL!!!!");
+                    PlaytimeManager.Instance.EndGame(); // タイマー終了
                     MyGameManager.GameState = MyGameManager.GameStateEnum.Result;
                 }
             }
