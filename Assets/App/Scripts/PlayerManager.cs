@@ -4,9 +4,6 @@ namespace App.Scripts
 {
     public class PlayerManager : MonoBehaviour
     {
-        // ゲームオーバー用の画像
-        [SerializeField] private Sprite _playerGameOverSprite;
-        
         public static Vector3 PlayerRotate { get; private set; } = Vector3.zero;
         public static Rigidbody2D PlayerRigidBody { get; set; }
 
@@ -31,12 +28,6 @@ namespace App.Scripts
 
         private void Update()
         {
-            if (MyGameManager.GameState == MyGameManager.GameStateEnum.GameOver)
-            {
-                // ゲームオーバー時は、プレイヤーの画像を変更する
-                gameObject.GetComponent<SpriteRenderer>().sprite = _playerGameOverSprite;
-            }
-            
             // メインゲーム状態以外は操作を受け付けない
             if (MyGameManager.GameState != MyGameManager.GameStateEnum.MainGame)
             {
