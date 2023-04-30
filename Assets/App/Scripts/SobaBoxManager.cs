@@ -71,6 +71,12 @@ namespace App.Scripts
         
         void OnCollisionEnter2D(Collision2D collision)
         {
+            if (MyGameManager.GameState == MyGameManager.GameStateEnum.Result)
+            {
+                // リザルト画面中は、ぶつかり判定を行わない
+                return;
+            }
+            
             if (collision.collider.CompareTag($"Wall") || SobaBoxHavingStateList[SobaBoxId] == SobaBoxHavingState.AwayFromPlayer)
             {
                 Debug.Log($"ぶつかりました。ID: {SobaBoxId}");
