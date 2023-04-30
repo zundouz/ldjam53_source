@@ -42,6 +42,22 @@ namespace App.Scripts
             {
                 GameState = GameStateEnum.MainGame;
             }
+            
+            // ゲームオーバーステートの変更
+            if (SobaBoxManager.IsGameOver)
+            {
+                GameState = GameStateEnum.GameOver;
+            }
+
+            // 画面遷移中以外のステートは、Rキーでリトライできるようにしておく
+            if (GameState != GameStateEnum.LoadingMainGame)
+            {
+                // Rキーで最初からできるようにしておく
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    MyGameManager.ExecuteRetry();
+                }
+            }
         }
 
         public static void ExecuteRetry()

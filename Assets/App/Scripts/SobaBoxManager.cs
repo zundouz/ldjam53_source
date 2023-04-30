@@ -13,6 +13,8 @@ namespace App.Scripts
             Destroyed
         };
 
+        public static bool IsGameOver { get; private set; }
+
         // 最初のステート
         public static SobaBoxHavingState[] SobaBoxHavingStateList =
         {
@@ -49,6 +51,8 @@ namespace App.Scripts
             {
                 SobaBoxHavingStateList[i] = SobaBoxHavingState.OnPlayer;
             }
+
+            IsGameOver = false;
         }
 
         // Update is called once per frame
@@ -84,6 +88,7 @@ namespace App.Scripts
                     var rb = gameObject.AddComponent<Rigidbody2D>();
                     rb.gravityScale = 0.01f;
                     rb.angularVelocity = 0.05f;
+                    rb.mass = 0.0001f; // 質量があると、間の箱がぶつかってしまったときにプレイヤー操作感に悪影響が出る
                     _isAwayFromPlayer = true;
                     gameObject.transform.parent = null;
                     
@@ -99,8 +104,28 @@ namespace App.Scripts
                     // {
                     //     Debug.Log($"{state}");
                     // }
+                    
+                    // ぶつかった時だけ、ゲームオーバー判定を行う
+                    CheckGameOver();
                 }
             }
         }
+
+        private static void CheckGameOver()
+        {
+            // SobaBoxHavingStateList の中にOnPlayer が存在しなければ、ゲームオーバー判定
+            foreach (var state in SobaBoxHavingStateList)
+            {
+                if (state == SobaBoxHavingState.OnPlayer)
+                {
+                    IsGameOver = false;
+                    return;
+                }
+            }
+            
+            // ここまで来たら、ゲームオーバー
+            IsGameOver = true;
+        }
+        
     }
 }
