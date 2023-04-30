@@ -6796,6 +6796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2b4110035e93f478768ce01bdd2b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerGameOverSprite: {fileID: 21300000, guid: 2784de05b0385a54a9d857aad9491ef1, type: 3}
 --- !u!212 &1590511024
 SpriteRenderer:
   m_ObjectHideFlags: 0
