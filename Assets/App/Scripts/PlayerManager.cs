@@ -47,18 +47,7 @@ namespace App.Scripts
             GetPlayerTransformInput();
 
             // 回転処理
-            float rotation = 0f;
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                rotation = 1f;
-            }
-            else if (Input.GetKey(KeyCode.E))
-            {
-                rotation = -1f;
-            }
-
-            _currentRotationSpeed = Mathf.Lerp(_currentRotationSpeed, rotation * RotationSpeed, RotationAcceleration * Time.deltaTime);
+            GetPlayerRotationInput();
         }
 
         // FixedUpdate is called once per fixed time interval
@@ -118,6 +107,22 @@ namespace App.Scripts
             {
                 _horizontal = 0f;
             }
+        }
+
+        void GetPlayerRotationInput()
+        {
+            float rotation = 0f;
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                rotation = 1f;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                rotation = -1f;
+            }
+
+            _currentRotationSpeed = Mathf.Lerp(_currentRotationSpeed, rotation * RotationSpeed, RotationAcceleration * Time.deltaTime);
         }
     }
 }
