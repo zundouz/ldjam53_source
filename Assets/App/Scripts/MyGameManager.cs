@@ -7,6 +7,8 @@ namespace App.Scripts
     {
         // ゲーム起動時のステートはTitleとする
         public static GameStateEnum GameState { get; set; } = GameStateEnum.Title;
+        // リトライによる初期化かどうかの判定
+        public static bool IsRetrying { get; set; } = false;
 
         public enum GameStateEnum
         {
@@ -45,7 +47,17 @@ namespace App.Scripts
         public static void ExecuteRetry()
         {
             // プレイヤーのRボタン押下を検知して、シーンを再読み込みすることでスタートからリトライする
+            IsRetrying = true;
             UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        }
+
+        // ゲーム起動直後の状態に初期化する関数
+        // リザルト→タイトル遷移時に呼ばれるイメージ
+        public static void ResetGameToInitialState()
+        {
+            GameState = GameStateEnum.Title;
+            IsRetrying = true;
+            TitleManager.IsTitleEnded = false;
         }
     }
 }

@@ -21,8 +21,7 @@ namespace App.Scripts
             {
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    MyGameManager.GameState = MyGameManager.GameStateEnum.Title;
-                    TitleManager.IsTitleEnded = false;
+                    MyGameManager.ResetGameToInitialState();
                     // 初期化処理としてシーンを読み直してしまう
                     UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
                 }

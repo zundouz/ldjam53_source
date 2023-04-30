@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace App.Scripts.Camera
@@ -7,6 +8,24 @@ namespace App.Scripts.Camera
         public Transform target;
         public float smoothSpeed;
         public Vector3 offset;
+
+        private void Start()
+        {
+            if (MyGameManager.IsRetrying)
+            {
+                // 検討：以下の処理を一応入れてみたものの、逆に味気なくなってしまったかも
+                // カメラ位置の調整ではなく、画面遷移時の演出で回避できそうなので一旦コメントアウトしたまま
+                
+                // // Rボタンでリトライした時にカメラが中心によっていると画面酔いしてしまうため
+                // // もしRボタンでリトライした場合は最初からカメラがプレイヤーを中心にしているような実装にしたい
+                // // そのために、カメラの初期位置をプレイヤーの位置にする
+                // var position = target.position;
+                // // このままだとゲーム開始時に画面真っ暗になる不具合があるので、解消する
+                // position = new Vector3(position.x, position.y, -10f);
+                // transform.position = position;
+            }
+
+        }
 
         private void LateUpdate()
         {
@@ -46,8 +65,7 @@ namespace App.Scripts.Camera
                 offset.y = 0f;
                 desiredPosition = target.position + offset;
             }
-            
-            
+
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
             smoothedPosition.z = transform.position.z; // Keep the camera's original Z position
             
