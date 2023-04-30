@@ -44,7 +44,11 @@ namespace App.Scripts
         // Start is called before the first frame update
         void Start()
         {
-        
+            // 初期化
+            for (int i = 0 ; i < SobaBoxHavingStateList.Length ; i++)
+            {
+                SobaBoxHavingStateList[i] = SobaBoxHavingState.OnPlayer;
+            }
         }
 
         // Update is called once per frame
