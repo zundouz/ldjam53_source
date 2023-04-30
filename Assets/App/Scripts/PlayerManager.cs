@@ -34,6 +34,12 @@ namespace App.Scripts
                 return;
             }
             
+            // Rキーで最初からできるようにしておく
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                MyGameManager.ExecuteRetry();
+            }
+            
             // プレイヤーの回転を取得しておく
             PlayerRotate = transform.rotation.eulerAngles;
             

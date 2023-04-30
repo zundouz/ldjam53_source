@@ -41,5 +41,11 @@ namespace App.Scripts
                 GameState = GameStateEnum.MainGame;
             }
         }
+
+        public static void ExecuteRetry()
+        {
+            // プレイヤーのRボタン押下を検知して、シーンを再読み込みすることでスタートからリトライする
+            UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
+        }
     }
 }
