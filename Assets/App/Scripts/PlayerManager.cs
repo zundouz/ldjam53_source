@@ -28,6 +28,12 @@ namespace App.Scripts
 
         private void Update()
         {
+            // メインゲーム状態以外は操作を受け付けない
+            if (MyGameManager.GameState != MyGameManager.GameStateEnum.MainGame)
+            {
+                return;
+            }
+            
             // プレイヤーの回転を取得しておく
             PlayerRotate = transform.rotation.eulerAngles;
             
